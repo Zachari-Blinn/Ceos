@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notes from evaluation{% endblock %}
+
+{% block body %}
+    <h1>{{ evaluation.Libelle }} notes</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('evaluation_index') }}">Evaluation_index</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Notes</li>
+        </ol>
+    </nav>
+
+    {% if notes is not empty %}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Note</th>
+                </tr>
+                {% for note in notes %}
+                <tr>
+                    <td>{{ note.eleve.user.nom }}</td>
+                    <td>{{ note.eleve.user.prenom }}</td>
+                    <td>{{ note.note }}/20</td>
+                </tr>
+                {% endfor %}
+
+                {# liste notes #}
+                {% set total = [] %}
+                {% set nbTotal = notes|length %}
+                {% set cumul = 0 %}
+
+                {% for uneNote in notes %}
+                    {% set total = total|merge([uneNote.note]) %}
+                    {% set cumul = cumul + uneNote.note %} {# pas oublier coeff #}
+                {% endfor %}
+                {% set cumul = cumul / nbTotal %}
+
+                {# min/max/total #}
+                Note la plus basse: {{ min(total) }}
+                Note la plus haute: {{ max(total) }}
+                Nombre de notes: {{ nbTotal }}
+                Moyenne: {{ cumul|u.truncate(4) }}
+            </tbody>
+        </table>
+    {% else %}
+        <tr>
+            <td>
+                <div class="alert alert-danger" role="alert">
+                    <h5 class="alert-heading">Attention</h5>
+                <p>Vous n'avez saisie aucune <strong>note</strong> sur cette évaluation.</p>
+                <hr>
+                <p class="mb-0">Veuillez saisir les notes avant de les consulter.</p>
+                </div>
+            </td>
+        <td>
+        </td>
+        </tr>
+    {% endif %}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('evaluation_index') }}">Retour</a>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                <a type="button" href="{{ path('evaluation_noter', {'id': evaluation.id}) }}" class="btn btn-success">Modifier</a>
+                {# <button class="btn btn-success">{{ button_label|default('Ajouter evaluation') }}</button> #}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Professeur index{% endblock %}
+
+{% block body %}
+    <h1>Professeur index</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Prof_index</li>
+        </ol>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom Utilisateur</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Matière(s)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for prof in profs %}
+            <tr>
+                <td>{{ prof.slug }}</td>
+                <td>{{ prof.user.Nom }}</td>
+                <td>{{ prof.user.Prenom }}</td>
+                <td>quelque chose</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('prof_show', {'id': prof.id}) }}">Voir</a>
+                    <a class="btn btn-warning" href="{{ path('prof_edit', {'id': prof.id}) }}">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success float-right" href="{{ path('user_prof_new') }}">Nouveau Professeur</a>
+{% endblock %}

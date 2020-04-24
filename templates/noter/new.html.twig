@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Noter{% endblock %}
+
+{% block body %}
+    <h1>Create new Noter</h1>
+    <br>
+
+    {{ include('noter/_form.html.twig') }}
+
+    <a href="{{ path('noter_index') }}">back to list</a>
+{% endblock %}

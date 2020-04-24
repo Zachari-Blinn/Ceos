@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une évaluation{% endblock %}
+
+{% block body %}
+
+<h1>Création évaluation</h1>
+<br>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_index') }}">Evaluation_index</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_classe') }}">Selection_classe</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_selectMatiere', {'classe': classe}) }}">Selection_matiere</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Creation_evaluation</li>
+    </ol>
+</nav>
+
+{{ form_start(form) }}
+
+<div class="row">
+    <div class="col">
+        {{ form_row(form.Libelle, {'attr': {'placeholder': 'ex: Contrôle Mathématique'} }) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ form_row(form.DateEval) }}
+    </div>
+    <div class="col">
+        {{ form_row(form.semestre) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        {{ form_row(form.notation) }}
+    </div>
+    <div class="col">
+        {{ form_row(form.Coef) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary" href="{{ path('evaluation_selectMatiere', {'classe': classe}) }}">Retour</a>
+        <div class="btn-group float-right" role="group" aria-label="Basic example">
+            <a type="button" href="#" class="btn btn-success">Ajouter notes</a>
+            <button class="btn btn-success">{{ button_label|default('Ajouter evaluation') }}</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+
+{% endblock %}
+
+

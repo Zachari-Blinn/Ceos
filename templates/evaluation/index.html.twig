@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evaluation index{% endblock %}
+
+{% block body %}
+
+    {% if is_granted('ROLE_PROF') %}
+
+        <h1>Evaluation index</h1>
+        <br>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Evaluation_index</li>
+            </ol>
+        </nav>
+
+        {% if evaluations is not empty %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>evaluation</th>
+                        {% endif %}
+                        <th>Evaluation</th>
+                        <th>Matière</th>
+                        <th>Fait le</th>
+                        <th>Coefficient</th>
+                        <th>Moyenne</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for evaluation in evaluations %}
+                    <tr>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <td>{{ evaluation.enseignement.prof.user.prenom }} {{ evaluation.enseignement.prof.user.nom }}</td>
+                        {% endif %}
+                        <td>{{ evaluation.Libelle }}</td>
+                        <td>{{ evaluation.enseignement.matiere.NomMatiere }}</td>
+                        <td>{{ evaluation.DateEval ? evaluation.DateEval|date('d-m-Y') : '' }}</td>
+                        <td>{{ evaluation.Coef }}</td>
+
+                        {% if evaluation.noters.id is defined and evaluation.noters.id is not null %}
+
+                            {% set total = [] %}
+                            {% set nbTotal = evaluation.noters|length %}
+                            {% set cumul = 0 %}
+
+                            {% for uneNote in evaluation.noters %}
+                                {% set total = total|merge([uneNote.note]) %}
+                                {% set cumul = cumul + uneNote.note %} {# pas oublier coeff #}
+                            {% endfor %}
+                            {% set cumul = cumul / nbTotal %}
+
+                            {# 
+                            Note la plus basse: {{ min(total) }}
+                            Note la plus haute: {{ max(total) }}
+                            Nombre de notes: {{ nbTotal }}
+                            #}
+
+                        <td>{{ cumul|u.truncate(4) }}/20</td>
+
+                        {% else %}
+                            <td>Aucune note</td>
+                        {% endif %} 
+
+                        <td>
+                            {# <a class="btn btn-info" href="{{ path('evaluation_show', {'id': evaluation.id}) }}">show</a> #}
+                            <a class="btn btn-warning" href="{{ path('evaluation_edit', {'id': evaluation.id}) }}">Editer</a>
+                            <a class="btn btn-info" href="{{ path('evaluation_notes', {'id': evaluation.id}) }}">Notes</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <tr>
+                <td>
+                    <div class="alert alert-warning" role="alert">
+                        <h5 class="alert-heading">Attention</h5>
+                        <p>Vous n'avez saisi aucune <strong>évaluation</strong> pour le moment.</p>
+                    </div>
+                </td>
+            <td>
+            </td>
+            </tr>
+        {% endif %}
+    {% endif %}
+
+    {# <a class="btn btn-success" href="{{ path('evaluation_selectClasse', {'profId': prof.id}) }}">Create new</a> #}
+    <a class="btn btn-success float-right" href="{{ path('evaluation_classe') }}">Nouvelle Evaluation</a>
+{% endblock %}

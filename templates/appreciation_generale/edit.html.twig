@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit AppreciationGenerale{% endblock %}
+
+{% block body %}
+    <h1>Edit AppreciationGenerale</h1>
+
+    {{ include('appreciation_generale/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('appreciation_generale_index') }}">back to list</a>
+
+    {{ include('appreciation_generale/_delete_form.html.twig') }}
+{% endblock %}

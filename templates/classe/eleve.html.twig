@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve from classe{% endblock %}
+
+{% block body %}
+    <h1>Classe</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('classe_index') }}">Classe_index</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Eleve_classe</li>
+        </ol>
+    </nav>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Action(s)</th>
+            </tr>
+            {% for eleve in eleveFromClasse %}
+            <tr>
+                <td>{{ eleve.user.nom }}</td>
+                <td>{{ eleve.user.prenom }}</td>
+                <td>
+                    <a class="btn btn-warning" href="{{ path('eleve_edit', {'id': eleve.id}) }}">Éditer</a>
+                    <a class="btn btn-info" href="{{ path('eleve_show', {'id': eleve.id}) }}">Voir</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>Aucune donnée</td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('classe_index') }}">Retour</a>
+{% endblock %}

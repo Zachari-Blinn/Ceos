@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AppreciationGenerale index{% endblock %}
+
+{% block body %}
+    <h1>AppreciationGenerale index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CommentaireGeneral</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appreciation_generale in appreciation_generales %}
+            <tr>
+                <td>{{ appreciation_generale.id }}</td>
+                <td>{{ appreciation_generale.CommentaireGeneral }}</td>
+                <td>
+                    <a href="{{ path('appreciation_generale_show', {'id': appreciation_generale.id}) }}">show</a>
+                    <a href="{{ path('appreciation_generale_edit', {'id': appreciation_generale.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('appreciation_generale_new') }}">Create new</a>
+{% endblock %}

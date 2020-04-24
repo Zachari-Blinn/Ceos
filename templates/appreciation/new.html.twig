@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Appreciation{% endblock %}
+
+{% block body %}
+    <h1>Create new Appreciation</h1>
+
+    {{ include('appreciation/_form.html.twig') }}
+
+    <a class="btn btn-primary" href="{{ path('appreciation_matiere', {'classe': classe}) }}">Retour</a>
+{% endblock %}

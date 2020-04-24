@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Noter index{% endblock %}
+
+{% block body %}
+    <h1>All Notes index</h1>
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Evaluation</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for noter in noters %}
+            <tr>
+                <td>{{ noter.evaluation.libelle }}</td>
+                <td>{{ noter.eleve.user.nom }}</td>
+                <td>{{ noter.eleve.user.prenom }}</td>
+                <td><span class="badge badge-danger">{{ noter.Note }}/20</span></td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('noter_show', {'id': noter.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('noter_edit', {'id': noter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success" href="{{ path('noter_new') }}">Create new</a>
+{% endblock %}

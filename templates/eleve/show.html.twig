@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve{% endblock %}
+
+{% block body %}
+    <h1>Eleve</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Nom</th>
+                <td>{{ eleve.user.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ eleve.user.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom d'utilisateur</th>
+                <td>{{ eleve.slug }}</td>
+            </tr> 
+            <tr>
+                <th>Rue</th>
+                <td>{{ eleve.AdresseRue }}</td>
+            </tr>
+            <tr>
+                <th>Code postal</th>
+                <td>{{ eleve.CP }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ eleve.Ville }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone mobile</th>
+                <td>{{ eleve.Tel }}</td>
+            </tr>
+            <tr>
+                <th>Activé</th>
+                {% if eleve.user.isActive == true %}
+                    <td>Oui</td>
+                {% else %}
+                    <td>Non</td>
+                {% endif %}
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('eleve_index') }}">Retour</a>
+            <a class="btn btn-warning float-right" href="{{ path('eleve_edit', {'id': eleve.id}) }}">Éditer</a>
+        </div>
+        <div>
+            {{ include('eleve/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

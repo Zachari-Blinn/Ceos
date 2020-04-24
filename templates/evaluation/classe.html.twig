@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Selection Classe{% endblock %}
+
+{% block body %}
+
+<h1>Selection classe</h1>
+<br>
+
+<section>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_index') }}">Evaluation_index</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Selection_classe</li>
+    </ol>
+</nav>
+
+{% if classes is not empty %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="col-8">Classe</th>
+                <th scope="col-4">Actions</th>
+            </tr>
+            {% for classe in classes %}
+            <tr>
+                <td>{{ classe.classe.libelle }}</td>
+                <td><a class="btn btn-success" href="{{ path('evaluation_selectMatiere', {'classe': classe.classe.id}) }}">Selectionner</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <tr>
+        <td>
+            <div class="alert alert-danger" role="alert">
+                <h5 class="alert-heading">Attention</h5>
+            <p>Vous n'avez aucun <strong>enseignement</strong> qui vous est assigné.</p>
+            <hr>
+            <p class="mb-0">Veuillez contacter un responsable ou un administrateur.</p>
+            </div>
+        </td>
+    <td>
+    </td>
+    </tr>
+{% endif %}
+
+<a class="btn btn-primary" href="{{ path('evaluation_index') }}">Retour</a>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer Evaluation{% endblock %}
+
+{% block body %}
+    <h1>Editer evaluation</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_index') }}">Evaluation_index</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Editer_evaluation</li>
+    </ol>
+</nav>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('evaluation_index') }}">Retour</a>
+            <button class="btn btn-success float-right">{{ button_label|default('Valider') }}</button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

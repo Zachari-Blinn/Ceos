@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Selection  Matiere{% endblock %}
+
+{% block body %}
+
+<h1>Selection matière</h1>
+<br>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('appreciation_index') }}">Appreciation_index</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('appreciation_classe') }}">Selection_classe</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Selection_matiere</li>
+    </ol>
+</nav>
+
+<table class="table">
+    <tbody>
+        <tr>
+            <th>Matières</th>
+            <th>Actions</th>
+        </tr>
+        {% for matiere in matieres %}
+        <tr>
+            <td>{{ matiere.matiere.nomMatiere }}</td>
+            <td><a class="btn btn-success" href="{{ path('evaluation_commenter', {'classe': classe, 'matiere': matiere.matiere.id}) }}">Selectionner</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="{{ path('appreciation_classe') }}">Retour</a>
+
+{% endblock %}

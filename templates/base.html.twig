@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Céos ENT{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+          Céos ENT
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            {% if is_granted('ROLE_ADMIN') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Administrateur
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ path('classe_index') }}">Classe(s)</a>
+                  <a class="dropdown-item" href="{{ path('matiere_index') }}">Matière(s)</a>
+                  <a class="dropdown-item" href="{{ path('prof_index') }}">Professeur(s)</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{{ path('eleve_index') }}">Élève(s)</a>
+                  <a class="dropdown-item" href="{{ path('enseignement_index') }}">Enseignement(s)</a>
+                </div>
+              </li>
+            {% endif %}
+            {% if is_granted('ROLE_PROF') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Professeur
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {# <a class="dropdown-item" href="{{ path('evaluation_new') }}">Nouvelle evaluation</a> #}
+                  <a class="dropdown-item" href="{{ path('evaluation_index') }}">Mes évaluations</a>
+                  <a class="dropdown-item" href="{{ path('classe_index') }}">Mes classes</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Appreciation generale (WIP)</a>
+                  <a class="dropdown-item" href="{{ path('appreciation_index') }}">Appreciation</a>
+                </div>
+              </li>
+            {% endif %}
+            {% if is_granted('ROLE_ELEVE') %}
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Eleve
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Mes notes</a>
+                </div>
+              </li>
+            {% endif %}
+
+            {% if app.user %}
+            <form class="form-inline">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle float-right" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Mon compte
+                </a>
+                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                  <a class="dropdown-item">{{ app.user.username }}</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Options</a>
+                  <a class="dropdown-item" href="#">Preferences</a>
+                  <a class="dropdown-item" style="color: red;" href="{{ path('app_logout') }}">Se deconnecter</a>
+                </div>
+              </li>
+            </form>
+            {% else %}
+              <form class="form-inline my-2 my-lg-0">
+                <a href="{{ path('app_login') }}" class="btn btn-info">Se connecter</a>
+              </form>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      <html>
+    <div class="container-fluid bg-faded py-3">
+    {# <h1 class="text-center">Selection matière</h1> #}
+    <br>
+
+    <div class="row">
+        <div class="col-1 mx-auto"></div>
+        <div class="col-10 mx-auto">
+          {% for label, messages in app.flashes %}
+          {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          {% endfor %}
+      {% endfor %}
+      <br>
+          <div class="card card-body mb-2">
+            <section>
+              {% block body %}
+              {% endblock %}
+            </section>
+          </div>
+        </div>
+        <div class="col-1 mx-auto">
+        </div>
+    </div>
+</html>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

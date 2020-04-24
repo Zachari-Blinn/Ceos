@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}AppreciationGenerale{% endblock %}
+
+{% block body %}
+    <h1>AppreciationGenerale</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ appreciation_generale.id }}</td>
+            </tr>
+            <tr>
+                <th>CommentaireGeneral</th>
+                <td>{{ appreciation_generale.CommentaireGeneral }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('appreciation_generale_index') }}">back to list</a>
+
+    <a href="{{ path('appreciation_generale_edit', {'id': appreciation_generale.id}) }}">edit</a>
+
+    {{ include('appreciation_generale/_delete_form.html.twig') }}
+{% endblock %}

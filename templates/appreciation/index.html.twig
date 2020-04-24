@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Appreciation index{% endblock %}
+
+{% block body %}
+    <h1>Appreciation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Commentaire</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for appreciation in appreciations %}
+            <tr>
+                <td>{{ appreciation.Commentaire }}</td>
+                <td>
+                    <a href="{{ path('appreciation_show', {'id': appreciation.id}) }}">show</a>
+                    <a href="{{ path('appreciation_edit', {'id': appreciation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success float-right" href="{{ path('appreciation_classe') }}">Create new</a>
+{% endblock %}

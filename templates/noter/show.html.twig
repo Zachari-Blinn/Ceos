@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Noter{% endblock %}
+
+{% block body %}
+    <h1>Noter</h1>
+    <br>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ noter.id }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ noter.Note }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('noter_index') }}">back to list</a>
+
+    <a href="{{ path('noter_edit', {'id': noter.id}) }}">edit</a>
+
+    {{ include('noter/_delete_form.html.twig') }}
+{% endblock %}

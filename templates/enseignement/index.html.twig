@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enseignement index{% endblock %}
+
+{% block body %}
+    <h1>Enseignement index</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Enseignement_Index</li>
+        </ol>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th><a style="color:black" href="{{ path('classe_index') }}">Classe</a></th>
+                <th><a style="color:black" href="{{ path('prof_index') }}">Professeur</a></th>
+                <th><a style="color:black" href="{{ path('matiere_index') }}">Matière</a></th>
+                <th>Action(s)</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for enseignement in enseignements %}
+            <tr>
+                {# <td>{{ enseignement.id }}</td> #}
+                <td><a style="color:black" href="{{ path('classe_edit', {'id': enseignement.classe.id}) }}">{{ enseignement.classe.libelle }}</a></td>
+                <td><a style="color:black" href="{{ path('prof_show', {'id': enseignement.prof.id}) }}">{{ enseignement.prof.slug }}</a></td>
+                <td><a style="color:black" href="{{ path('matiere_edit', {'id': enseignement.matiere.id}) }}">{{ enseignement.matiere.slug }}</a></td>
+                <td>
+                    {# <a href="{{ path('enseignement_show', {'id': enseignement.id}) }}">show</a> #}
+                    <a class="btn btn-warning" href="{{ path('enseignement_edit', {'id': enseignement.id}) }}">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success float-right" href="{{ path('enseignement_new') }}">Ajouter Enseignement</a>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evaluation notes{% endblock %}
+
+{% block body %}
+
+<h1>{{ evaluation.Libelle }} notes</h1>
+<br>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_index') }}">Evaluation_index</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('evaluation_notes', {'id': evaluation.id}) }}">Evaluation_notes</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Noter_evaluation</li>
+    </ol>
+</nav>
+
+    {{ form_start(form) }}
+
+        {% for noter in form.noters %}
+
+            {{ form_row(noter) }}
+
+        {% endfor %}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('evaluation_index') }}">Retour</a>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+
+{% endblock %}

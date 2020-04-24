@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve index{% endblock %}
+
+{% block body %}
+    <h1>Eleve index</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Eleve Index</li>
+        </ol>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eleve in eleves %}
+            <tr>
+                {# <td>{{ eleve.id }}</td> #}
+                <td>{{ eleve.user.Nom }}</td>
+                <td>{{ eleve.user.Prenom }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('eleve_show', {'id': eleve.id}) }}">Voir</a>
+                    <a class="btn btn-warning" href="{{ path('eleve_edit', {'id': eleve.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success float-right" href="{{ path('user_eleve_new') }}">Nouvel Élève</a>
+{% endblock %}

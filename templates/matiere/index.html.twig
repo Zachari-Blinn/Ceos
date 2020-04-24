@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matiere index{% endblock %}
+
+{% block body %}
+    <h1>Matiere index</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Matiere_index</li>
+        </ol>
+    </nav>
+
+    <table class="table">
+        <thead>
+            <tr>
+                {# <th>Id</th> #}
+                <th>Matiere</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matiere in matieres %}
+            <tr>
+                {# <td>{{ matiere.id }}</td> #}
+                <td>{{ matiere.NomMatiere }}</td>
+                <td>
+                    {# <a class="btn btn-info" href="{{ path('matiere_show', {'id': matiere.id}) }}">show</a> #}
+                    <a class="btn btn-warning" href="{{ path('matiere_edit', {'id': matiere.id}) }}">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune donnée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-success float-right" href="{{ path('matiere_new') }}">Nouvelle Matière</a>
+{% endblock %}

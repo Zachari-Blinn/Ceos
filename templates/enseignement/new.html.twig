@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Enseignement{% endblock %}
+
+{% block body %}
+    <h1>Nouvel Enseignement</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('enseignement_index') }}">Enseignement_Index</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nouvel_Enseignement</li>
+        </ol>
+    </nav>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('enseignement_index') }}">Retour</a>
+            <button class="btn btn-success float-right">{{ button_label|default('Valider') }}</button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

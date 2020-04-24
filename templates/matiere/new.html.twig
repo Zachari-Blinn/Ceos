@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Matiere{% endblock %}
+
+{% block body %}
+    <h1>Nouvelle Matiere</h1>
+    <br>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('matiere_index') }}">Matiere Index</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Nouvelle Matiere</li>
+        </ol>
+    </nav>
+
+    {{ form_start(form) }}
+
+    <div class="form-group">
+        <label>{{ form_label(form.NomMatiere) }} <font color="red" size="4">*</font></label>
+        {{ form_widget(form.NomMatiere, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.NomMatiere) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('matiere_index') }}">Retour</a>
+            <button class="btn btn-success float-right">{{ button_label|default('Valider') }}</button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}

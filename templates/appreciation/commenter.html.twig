@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Remarques{% endblock %}
+
+{% block body %}
+
+<h1>{{ enseignement.classe.libelle }} {{ enseignement.matiere.NomMatiere }} remarques</h1>
+<br>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{{ path('appreciation_index') }}">Appreciation_index</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('appreciation_classe') }}">Selection_classe</a></li>
+        <li class="breadcrumb-item"><a href="{{ path('appreciation_matiere', {'classe': enseignement.classe.id}) }}">Selection_matiere</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Ajout_appreciation</li>
+    </ol>
+</nav>
+
+    {{ form_start(form) }}
+
+        {% for appreciation in form.appreciation %}
+
+            {{ form_row(appreciation) }}
+
+        {% endfor %}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('appreciation_matiere', {'classe': enseignement.classe.id}) }}">Retour</a>
+            <div class="btn-group float-right" role="group" aria-label="Basic example">
+                <button type="submit" class="btn btn-success">Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+
+{% endblock %}

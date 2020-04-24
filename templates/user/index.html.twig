@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateur index</h1>
+    <br>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom d'utilisateur</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.Nom }}</td>
+                <td>{{ user.Prenom }}</td>
+                <td>
+                    {% for role in user.roles %}
+                        {% if role == "ROLE_ELEVE" %}
+                            <span class="badge badge-success">Élève</span>
+                        {% elseif role == "ROLE_PROF" %}
+                            <span class="badge badge-info">Professeur</span>
+                        {% elseif role == "ROLE_ADMIN" %}
+                            <span class="badge badge-danger">Administrateur</span>
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
+                    <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_eleve_new') }}">Create new eleve</a>
+    <a href="{{ path('user_prof_new') }}">Create new prof</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer Professeur{% endblock %}
+
+{% block body %}
+    <h1>Editer Professeur</h1>
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ path('classe_index') }}">Professeur Index</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editer Professeur</li>
+        </ol>
+    </nav>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="{{ path('prof_index') }}">Retour</a>
+            <button class="btn btn-success float-right">{{ button_label|default('Valider') }}</button>
+        </div>
+        <div>
+            {{ form_end(form) }}
+            {{ include('prof/_delete_form.html.twig') }}
+        </div>
+    </div>
+
+
+{% endblock %}
